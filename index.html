@@ -2198,3 +2198,527 @@
                     const videoCard = document.createElement('div');
                     videoCard.className = 'video-card';
                     videoCard.dataset.id = video.id
+                    <!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vídeos Engraçados</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #6e48aa, #9d50bb);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+        
+        .search-bar {
+            display: flex;
+            margin: 0 1rem;
+        }
+        
+        .search-bar input {
+            padding: 0.5rem;
+            border: none;
+            border-radius: 4px 0 0 4px;
+            width: 250px;
+        }
+        
+        .search-bar button {
+            padding: 0.5rem;
+            background: #ffd700;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        .user-actions a {
+            color: white;
+            text-decoration: none;
+            margin-left: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+        
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+            scrollbar-width: thin;
+        }
+        
+        .categories::-webkit-scrollbar {
+            height: 8px;
+        }
+        
+        .categories::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        
+        .category {
+            flex: 0 0 auto;
+            margin-right: 1rem;
+            padding: 0.5rem 1.5rem;
+            background: white;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .category:hover, .category.active {
+            background: #6e48aa;
+            color: white;
+        }
+        
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.05);
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .video-info {
+            padding: 1rem;
+        }
+        
+        .video-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .video-uploader {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .uploader-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            margin-right: 0.5rem;
+            object-fit: cover;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #ffd700;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-section a {
+            color: #ddd;
+            text-decoration: none;
+        }
+        
+        .footer-section a:hover {
+            color: #ffd700;
+        }
+        
+        .social-icons {
+            display: flex;
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #555;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            nav ul {
+                margin-top: 1rem;
+                flex-wrap: wrap;
+            }
+            
+            nav ul li {
+                margin: 0 1rem 0.5rem 0;
+            }
+            
+            .search-bar {
+                margin: 1rem 0;
+                width: 100%;
+            }
+            
+            .search-bar input {
+                width: 100%;
+            }
+            
+            .user-actions {
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i>😂</i> Vídeos Engraçados
+            </div>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar vídeos...">
+                <button>🔍</button>
+            </div>
+            
+            <nav>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Em Alta</a></li>
+                    <li><a href="#">Categorias</a></li>
+                    <li><a href="#">Favoritos</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <a href="#">Entrar</a>
+                <a href="#">Cadastrar</a>
+            </div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="categories">
+            <div class="category active">Todos</div>
+            <div class="category">Pets Engraçados</div>
+            <div class="category">Prank</div>
+            <div class="category">Fail</div>
+            <div class="category">Memes</div>
+            <div class="category">Children</div>
+            <div class="category">Stand-up</div>
+            <div class="category">Virais</div>
+        </div>
+        
+        <div class="videos-grid">
+            <!-- Vídeo 1 -->
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://placehold.co/300x180/6e48aa/white?text=Gato+Dançando" alt="Gato dançando">
+                    <div class="video-duration">2:15</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Gato dançando hilariamente com música eletrônica</h3>
+                    <div class="video-meta">
+                        <span>1.2M visualizações</span>
+                        <span>há 3 dias</span>
+                    </div>
+                    <div class="video-uploader">
+                        <img src="https://placehold.co/30x30/9d50bb/white?text=U" alt="Uploader" class="uploader-avatar">
+                        <span>Comédia Animal</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vídeo 2 -->
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://placehold.co/300x180/ff5252/white?text=Fail+Epico" alt="Fail épico">
+                    <div class="video-duration">0:45</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Maior fail do ano! Você vai rir muito</h3>
+                    <div class="video-meta">
+                        <span>3.4M visualizações</span>
+                        <span>há 1 semana</span>
+                    </div>
+                    <div class="video-uploader">
+                        <img src="https://placehold.co/30x30/ff5252/white?text=U" alt="Uploader" class="uploader-avatar">
+                        <span>Fails Incríveis</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vídeo 3 -->
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://placehold.co/300x180/ffb142/white?text=Bebe+Rindo" alt="Bebê rindo">
+                    <div class="video-duration">3:22</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Bebê dando risadas com o pai - Muito engraçado!</h3>
+                    <div class="video-meta">
+                        <span>4.7M visualizações</span>
+                        <span>há 2 semanas</span>
+                    </div>
+                    <div class="video-uploader">
+                        <img src="https://placehold.co/30x30/ffb142/white?text=U" alt="Uploader" class="uploader-avatar">
+                        <span>Family Fun</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vídeo 4 -->
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://placehold.co/300x180/3498db/white?text=Prank+Engraçado" alt="Prank engraçado">
+                    <div class="video-duration">5:18</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Prank na amiga que vai te fazer rir até chorar</h3>
+                    <div class="video-meta">
+                        <span>2.8M visualizações</span>
+                        <span>há 5 dias</span>
+                    </div>
+                    <div class="video-uploader">
+                        <img src="https://placehold.co/30x30/3498db/white?text=U" alt="Uploader" class="uploader-avatar">
+                        <span>Prank Masters</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vídeo 5 -->
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://placehold.co/300x180/2ecc71/white?text=Stand-up" alt="Stand-up comedy">
+                    <div class="video-duration">7:32</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Melhores momentos de stand-up comedy deste mês</h3>
+                    <div class="video-meta">
+                        <span>1.9M visualizações</span>
+                        <span>há 4 dias</span>
+                    </div>
+                    <div class="video-uploader">
+                        <img src="https://placehold.co/30x30/2ecc71/white?text=U" alt="Uploader" class="uploader-avatar">
+                        <span>Comedy Club</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vídeo 6 -->
+            <div class="video-card">
+                <div class="video-thumbnail">
+                    <img src="https://placehold.co/300x180/8e44ad/white?text=Memes+2023" alt="Memes 2023">
+                    <div class="video-duration">10:05</div>
+                </div>
+                <div class="video-info">
+                    <h3 class="video-title">Os melhores memes de 2023 que você não pode perder</h3>
+                    <div class="video-meta">
+                        <span>5.3M visualizações</span>
+                        <span>há 3 semanas</span>
+                    </div>
+                    <div class="video-uploader">
+                        <img src="https://placehold.co/30x30/8e44ad/white?text=U" alt="Uploader" class="uploader-avatar">
+                        <span>Meme Factory</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Sobre Nós</h3>
+                <p>O maior site de vídeos engraçados da internet. Nossa missão é espalhar alegria e risos para todos!</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Links Rápidos</h3>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Em Alta</a></li>
+                    <li><a href="#">Categorias</a></li>
+                    <li><a href="#">Favoritos</a></li>
+                    <li><a href="#">Enviar Vídeo</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Contato</h3>
+                <p>Email: contato@videosengracados.com</p>
+                <p>Telefone: (11) 99999-9999</p>
+                <div class="social-icons">
+                    <a href="#">📱</a>
+                    <a href="#">📘</a>
+                    <a href="#">📸</a>
+                    <a href="#">🐦</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>&copy; 2023 Vídeos Engraçados - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    <script>
+        // Interatividade básica
+        document.addEventListener('DOMContentLoaded', function() {
+            // Categorias - tornar clicáveis
+            const categories = document.querySelectorAll('.category');
+            categories.forEach(category => {
+                category.addEventListener('click', function() {
+                    categories.forEach(c => c.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+            
+            // Cards de vídeo - redirecionamento simulado
+            const videoCards = document.querySelectorAll('.video-card');
+            videoCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    alert('Redirecionando para a página do vídeo...');
+                    // Em um site real, aqui seria window.location.href = 'url-do-video';
+                });
+            });
+            
+            // Barra de pesquisa
+            const searchButton = document.querySelector('.search-bar button');
+            searchButton.addEventListener('click', function() {
+                const searchTerm = document.querySelector('.search-bar input').value;
+                if (searchTerm) {
+                    alert(`Buscando por: ${searchTerm}`);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
