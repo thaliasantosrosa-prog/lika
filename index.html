@@ -1,467 +1,4 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RisadaGarantida - Seu site de vídeos engraçados</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #ab6bff 0%, #53c0ff 100%);
-            padding: 20px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-        
-        .logo i {
-            font-size: 2.5rem;
-            margin-right: 10px;
-        }
-        
-        .logo h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        /* Navegação */
-        nav {
-            background-color: #ff8e8e;
-            padding: 12px;
-            text-align: center;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-        
-        nav a:hover {
-            color: #ffecec;
-            text-decoration: underline;
-        }
-        
-        /* Container principal */
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-        
-        /* Seção de destaque */
-        .featured {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://placehold.co/1200x400/ff6b6b/white?text=Vídeo+Em+Destaque');
-            background-size: cover;
-            background-position: center;
-            height: 400px;
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            color: white;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-        
-        .featured h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-        
-        .featured p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
-        
-        .play-btn {
-            background-color: #ff6b6b;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s;
-            width: auto;
-        }
-        
-        .play-btn i {
-            margin-right: 8px;
-        }
-        
-        .play-btn:hover {
-            background-color: #ff5252;
-            transform: translateY(-2px);
-        }
-        
-        /* Grid de vídeos */
-        .section-title {
-            font-size: 1.8rem;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #ff6b6b;
-            color: #444;
-        }
-        
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        
-        .video-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
-        }
-        
-        .video-thumb {
-            width: 100%;
-            height: 180px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            position: relative;
-        }
-        
-        .video-thumb i {
-            font-size: 3rem;
-            color: #ff6b6b;
-            opacity: 0.8;
-        }
-        
-        .video-duration {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-        
-        .video-info {
-            padding: 15px;
-        }
-        
-        .video-title {
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-            color: #333;
-        }
-        
-        .video-desc {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 12px;
-        }
-        
-        .video-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #888;
-            font-size: 0.9rem;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
-        }
-        
-        .footer-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .social-links {
-            margin: 20px 0;
-        }
-        
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: #ff6b6b;
-        }
-        
-        .copyright {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-        
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .video-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .featured {
-                height: 300px;
-            }
-            
-            nav a {
-                font-size: 0.9rem;
-                margin: 0 8px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .featured {
-                height: 250px;
-                padding: 20px;
-            }
-            
-            .featured h2 {
-                font-size: 1.5rem;
-            }
-            
-            .logo h1 {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="logo">
-            <i class="fas fa-laugh-squint"></i>
-            <h1>RisadaGarantida</h1>
-        </div>
-        <p>Os vídeos mais engraçados da internet em um só lugar!</p>
-    </header>
-    
-    <nav>
-        <a href="#"><i class="fas fa-home"></i> Início</a>
-        <a href="#"><i class="fas fa-list"></i> Categorias</a>
-        <a href="#"><i class="fas fa-fire"></i> Em Alta</a>
-        <a href="#"><i class="fas fa-heart"></i> Favoritos</a>
-        <a href="#"><i class="fas fa-info-circle"></i> Sobre</a>
-    </nav>
-    
-    <div class="container">
-        <!-- Vídeo em destaque -->
-        <div class="featured">
-            <h2>Vídeo da Semana: As Gargalhadas Mais Contagiantes!</h2>
-            <p>Confira a compilação de risadas mais engraçadas que já vimos neste ano. Imperdível!</p>
-            <button class="play-btn"><i class="fas fa-play"></i> Assistir Agora</button>
-        </div>
-        
-        <!-- Vídeos em alta -->
-        <h2 class="section-title"><i class="fas fa-fire"></i> Vídeos em Alta</h2>
-        <div class="video-grid">
-            <!-- Vídeo 1 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">2:15</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Gato pregando peça no cachorro</div>
-                    <div class="video-desc">Esse gato aprontou uma das pegadinhas mais engraçadas com o amigo cachorro.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 245K</span>
-                        <span><i class="far fa-thumbs-up"></i> 89%</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Vídeo 2 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">3:42</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Fails de Segunda-feira</div>
-                    <div class="video-desc">Os melhos fails para você começar a semana rindo.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 189K</span>
-                        <span><i class="far fa-thumbs-up"></i> 92%</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Vídeo 3 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">4:20</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Bebês dançando de modo engraçado</div>
-                    <div class="video-desc">Esses pequenos sabem como dançar e fazer a gente rir!</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 356K</span>
-                        <span><i class="far fa-thumbs-up"></i> 95%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Vídeos recentes -->
-        <h2 class="section-title"><i class="fas fa-clock"></i> Adicionados Recentemente</h2>
-        <div class="video-grid">
-            <!-- Vídeo 4 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">1:58</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Reações engraçadas a sustos</div>
-                    <div class="video-desc">Pessoas levando sustos e reagindo de modo hilário.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 142K</span>
-                        <span><i class="far fa-thumbs-up"></i> 87%</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Vídeo 5 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">5:12</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Tentativas de dancinha do TikTok</div>
-                    <div class="video-desc">Quando as pessoas tentam mas não conseguem replicar as dancinhas.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 201K</span>
-                        <span><i class="far fa-thumbs-up"></i> 91%</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Vídeo 6 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">2:37</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Memes da vida real</div>
-                    <div class="video-desc">Situações cotidianas que parecem memes da internet.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 178K</span>
-                        <span><i class="far fa-thumbs-up"></i> 94%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <footer>
-        <div class="footer-content">
-            <h3>RisadaGarantida</h3>
-            <p>O melhor site para assistir vídeos engraçados e começar o dia com alegria!</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="copyright">© 2023 RisadaGarantida - Todos os direitos reservados</p>
-        </div>
-    </footer>
 
-    <script>
-        // JavaScript para funcionalidades básicas
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Site RisadaGarantida carregado!');
-            
-            // Simular clique nos cards de vídeo
-            const videoCards = document.querySelectorAll('.video-card');
-            videoCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const title = this.querySelector('.video-title').textContent;
-                    alert(`Em uma versão futura, você assistirá a: "${title}"`);
-                });
-            });
-            
-            // Botão de play do vídeo em destaque
-            const playBtn = document.querySelector('.play-btn');
-            if (playBtn) {
-                playBtn.addEventListener('click', function() {
-                    alert('Em uma versão futura, o vídeo em destaque será reproduzido!');
-                });
-            }
-        });
-    </script>
-</body>
-</html>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -495,6 +32,14 @@
             z-index: 100;
         }
         
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
         .logo {
             display: flex;
             align-items: center;
@@ -518,468 +63,29 @@
             margin: 0 auto;
         }
         
-        /* Navegação */
-        nav {
-            background-color: #ff8e8e;
-            padding: 12px;
-            text-align: center;
-        }
-        
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 15px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s;
-        }
-        
-        nav a:hover {
-            color: #ffecec;
-            text-decoration: underline;
-        }
-        
-        /* Container principal */
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-        
-        /* Seção de destaque */
-        .featured {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://placehold.co/1200x400/ff6b6b/white?text=Vídeo+Em+Destaque');
-            background-size: cover;
-            background-position: center;
-            height: 400px;
-            border-radius: 12px;
+        /* Barra de pesquisa */
+        .search-bar {
             display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 30px;
-            color: white;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-        }
-        
-        .featured h2 {
-            font-size: 2.2rem;
-            margin-bottom: 15px;
-        }
-        
-        .featured p {
-            font-size: 1.2rem;
+            width: 100%;
             max-width: 600px;
-            margin-bottom: 20px;
+            margin: 15px auto 0;
         }
         
-        .play-btn {
-            background-color: #ff6b6b;
+        .search-bar input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 1rem;
+        }
+        
+        .search-bar button {
+            background: #333;
             color: white;
             border: none;
-            padding: 12px 25px;
-            border-radius: 50px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 0 50px 50px 0;
             cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            transition: all 0.3s;
-            width: auto;
-        }
-        
-        .play-btn i {
-            margin-right: 8px;
-        }
-        
-        .play-btn:hover {
-            background-color: #ff5252;
-            transform: translateY(-2px);
-        }
-        
-        /* Grid de vídeos */
-        .section-title {
-            font-size: 1.8rem;
-            margin: 40px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #ff6b6b;
-            color: #444;
-        }
-        
-        .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 20px;
-        }
-        
-        .video-card {
-            background: white;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .video-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
-        }
-        
-        .video-thumb {
-            width: 100%;
-            height: 180px;
-            background-color: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #888;
-            position: relative;
-        }
-        
-        .video-thumb i {
-            font-size: 3rem;
-            color: #ff6b6b;
-            opacity: 0.8;
-        }
-        
-        .video-duration {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.9rem;
-        }
-        
-        .video-info {
-            padding: 15px;
-        }
-        
-        .video-title {
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 1.1rem;
-            color: #333;
-        }
-        
-        .video-desc {
-            font-size: 0.95rem;
-            color: #666;
-            margin-bottom: 12px;
-        }
-        
-        .video-meta {
-            display: flex;
-            justify-content: space-between;
-            color: #888;
-            font-size: 0.9rem;
-        }
-        
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 30px 20px;
-            margin-top: 60px;
-        }
-        
-        .footer-content {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .social-links {
-            margin: 20px 0;
-        }
-        
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
-        
-        .social-links a:hover {
-            color: #ff6b6b;
-        }
-        
-        .copyright {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #ccc;
-        }
-        
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .video-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-            
-            header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .featured {
-                height: 300px;
-            }
-            
-            nav a {
-                font-size: 0.9rem;
-                margin: 0 8px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .video-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .featured {
-                height: 250px;
-                padding: 20px;
-            }
-            
-            .featured h2 {
-                font-size: 1.5rem;
-            }
-            
-            .logo h1 {
-                font-size: 1.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="logo">
-            <i class="fas fa-laugh-squint"></i>
-            <h1>RisadaGarantida</h1>
-        </div>
-        <p>Os vídeos mais engraçados da internet em um só lugar!</p>
-    </header>
-    
-    <nav>
-        <a href="#"><i class="fas fa-home"></i> Início</a>
-        <a href="#"><i class="fas fa-list"></i> Categorias</a>
-        <a href="#"><i class="fas fa-fire"></i> Em Alta</a>
-        <a href="#"><i class="fas fa-heart"></i> Favoritos</a>
-        <a href="#"><i class="fas fa-info-circle"></i> Sobre</a>
-    </nav>
-    
-    <div class="container">
-        <!-- Vídeo em destaque -->
-        <div class="featured">
-            <h2>Vídeo da Semana: As Gargalhadas Mais Contagiantes!</h2>
-            <p>Confira a compilação de risadas mais engraçadas que já vimos neste ano. Imperdível!</p>
-            <button class="play-btn"><i class="fas fa-play"></i> Assistir Agora</button>
-        </div>
-        
-        <!-- Vídeos em alta -->
-        <h2 class="section-title"><i class="fas fa-fire"></i> Vídeos em Alta</h2>
-        <div class="video-grid">
-            <!-- Vídeo 1 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">2:15</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Gato pregando peça no cachorro</div>
-                    <div class="video-desc">Esse gato aprontou uma das pegadinhas mais engraçadas com o amigo cachorro.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 245K</span>
-                        <span><i class="far fa-thumbs-up"></i> 89%</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Vídeo 2 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">3:42</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Fails de Segunda-feira</div>
-                    <div class="video-desc">Os melhos fails para você começar a semana rindo.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 189K</span>
-                        <span><i class="far fa-thumbs-up"></i> 92%</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Vídeo 3 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">4:20</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Bebês dançando de modo engraçado</div>
-                    <div class="video-desc">Esses pequenos sabem como dançar e fazer a gente rir!</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 356K</span>
-                        <span><i class="far fa-thumbs-up"></i> 95%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Vídeos recentes -->
-        <h2 class="section-title"><i class="fas fa-clock"></i> Adicionados Recentemente</h2>
-        <div class="video-grid">
-            <!-- Vídeo 4 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">1:58</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Reações engraçadas a sustos</div>
-                    <div class="video-desc">Pessoas levando sustos e reagindo de modo hilário.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 142K</span>
-                        <span><i class="far fa-thumbs-up"></i> 87%</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Vídeo 5 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">5:12</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Tentativas de dancinha do TikTok</div>
-                    <div class="video-desc">Quando as pessoas tentam mas não conseguem replicar as dancinhas.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 201K</span>
-                        <span><i class="far fa-thumbs-up"></i> 91%</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Vídeo 6 -->
-            <div class="video-card">
-                <div class="video-thumb">
-                    <i class="fas fa-play-circle"></i>
-                    <span class="video-duration">2:37</span>
-                </div>
-                <div class="video-info">
-                    <div class="video-title">Memes da vida real</div>
-                    <div class="video-desc">Situações cotidianas que parecem memes da internet.</div>
-                    <div class="video-meta">
-                        <span><i class="fas fa-eye"></i> 178K</span>
-                        <span><i class="far fa-thumbs-up"></i> 94%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <footer>
-        <div class="footer-content">
-            <h3>RisadaGarantida</h3>
-            <p>O melhor site para assistir vídeos engraçados e começar o dia com alegria!</p>
-            <div class="social-links">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-youtube"></i></a>
-                <a href="#"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="copyright">© 2023 RisadaGarantida - Todos os direitos reservados</p>
-        </div>
-    </footer>
-
-    <script>
-        // JavaScript para funcionalidades básicas
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Site RisadaGarantida carregado!');
-            
-            // Simular clique nos cards de vídeo
-            const videoCards = document.querySelectorAll('.video-card');
-            videoCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const title = this.querySelector('.video-title').textContent;
-                    alert(`Em uma versão futura, você assistirá a: "${title}"`);
-                });
-            });
-            
-            // Botão de play do vídeo em destaque
-            const playBtn = document.querySelector('.play-btn');
-            if (playBtn) {
-                playBtn.addEventListener('click', function() {
-                    alert('Em uma versão futura, o vídeo em destaque será reproduzido!');
-                });
-            }
-        });
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RisadaGarantida - Seu site de vídeos engraçados</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
-        body {
-            background-color: #f8f9fa;
-            color: #333;
-            line-height: 1.6;
-        }
-        
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #ff6b6b 0%, #ff8e53 100%);
-            padding: 20px;
-            text-align: center;
-            color: white;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 10px;
-        }
-        
-        .logo i {
-            font-size: 2.5rem;
-            margin-right: 10px;
-        }
-        
-        .logo h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-        }
-        
-        header p {
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
         }
         
         /* Navegação */
@@ -1228,6 +334,89 @@
             color: #666;
         }
         
+        /* Seção de comentários */
+        .comments-section {
+            margin-top: 30px;
+        }
+        
+        .comments-section h3 {
+            margin-bottom: 20px;
+            color: #444;
+        }
+        
+        .comment-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .comment-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 50px;
+            font-size: 1rem;
+        }
+        
+        .comment-form button {
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+        }
+        
+        .comment {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 12px;
+        }
+        
+        .comment-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #888;
+        }
+        
+        .comment-content {
+            flex: 1;
+        }
+        
+        .comment-author {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .comment-text {
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .comment-actions {
+            display: flex;
+            gap: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .comment-action {
+            cursor: pointer;
+        }
+        
+        .comment-action:hover {
+            color: #ff6b6b;
+        }
+        
         /* Categorias */
         .categories {
             display: flex;
@@ -1251,6 +440,73 @@
             color: white;
         }
         
+        /* Modal de login */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .form-options a {
+            color: #ff6b6b;
+            text-decoration: none;
+        }
+        
         /* Footer */
         footer {
             background-color: #333;
@@ -1266,6 +522,23 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            color: #ff6b6b;
         }
         
         .social-links {
@@ -1298,27 +571,35 @@
             margin: 40px 0;
         }
         
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-group input, .form-group textarea {
+        .contact-form .form-group textarea {
             width: 100%;
             padding: 12px 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
-        }
-        
-        .form-group textarea {
             min-height: 150px;
             resize: vertical;
+        }
+        
+        /* User area */
+        .user-area {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
         }
         
         /* Responsividade */
@@ -1348,6 +629,14 @@
                 padding: 8px 15px;
                 font-size: 0.9rem;
             }
+            
+            .user-area {
+                position: relative;
+                top: 0;
+                right: 0;
+                justify-content: center;
+                margin-top: 15px;
+            }
         }
         
         @media (max-width: 480px) {
@@ -1372,16 +661,64 @@
                 flex-wrap: wrap;
                 justify-content: center;
             }
+            
+            .comment {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <i class="fas fa-laugh-squint"></i>
-            <h1>RisadaGarantida</h1>
+    <!-- Modal de Login -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Entrar na Conta</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="login-email" placeholder="Seu e-mail">
+            </div>
+            <div class="form-group">
+                <label for="password">Senha</label>
+                <input type="password" id="login-password" placeholder="Sua senha">
+            </div>
+            <div class="form-options">
+                <label>
+                    <input type="checkbox"> Lembrar de mim
+                </label>
+                <a href="#">Esqueci a senha</a>
+            </div>
+            <button class="btn" style="width: 100%;">Entrar</button>
+            <p style="text-align: center; margin-top: 20px;">
+                Não tem uma conta? <a href="#" style="color: #ff6b6b;" id="show-register">Registre-se</a>
+            </p>
         </div>
-        <p>Os vídeos mais engraçados da internet em um só lugar!</p>
+    </div>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-laugh-squint"></i>
+                <h1>RisadaGarantida</h1>
+            </div>
+            <p>Os vídeos mais engraçados da internet em um só lugar!</p>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar vídeos engraçados...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <div class="user-area">
+                <button class="btn" id="login-btn"><i class="fas fa-user"></i> Entrar</button>
+                <div class="user-avatar" style="display: none;">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
     </header>
     
     <nav>
@@ -1439,6 +776,61 @@
                     <span><i class="far fa-calendar"></i> 2 dias atrás</span>
                 </div>
                 <p id="expanded-desc">Descrição completa do vídeo será exibida aqui. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor, nisl eu ultricies lacinia, nunc nisl aliquam nisl, eu aliquam nisl nunc eu nisl.</p>
+                
+                <!-- Seção de comentários -->
+                <div class="comments-section">
+                    <h3>Comentários (3)</h3>
+                    
+                    <div class="comment-form">
+                        <input type="text" placeholder="Adicione um comentário...">
+                        <button class="btn">Comentar</button>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-author">João Silva</div>
+                            <div class="comment-text">Esse vídeo é demais! Já assisti umas 10 vezes e não paro de rir! 😂</div>
+                            <div class="comment-actions">
+                                <span class="comment-action">Curtir</span>
+                                <span class="comment-action">Responder</span>
+                                <span class="comment-action">2h atrás</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-author">Maria Santos</div>
+                            <div class="comment-text">Meu dia ficou muito melhor depois desse vídeo! Obrigada por compartilhar!</div>
+                            <div class="comment-actions">
+                                <span class="comment-action">Curtir</span>
+                                <span class="comment-action">Responder</span>
+                                <span class="comment-action">5h atrás</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="comment">
+                        <div class="comment-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="comment-content">
+                            <div class="comment-author">Carlos Oliveira</div>
+                            <div class="comment-text">Alguém sabe de onde é esse vídeo? Quero mostrar para meus amigos!</div>
+                            <div class="comment-actions">
+                                <span class="comment-action">Curtir</span>
+                                <span class="comment-action">Responder</span>
+                                <span class="comment-action">1 dia atrás</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         
@@ -1476,6 +868,16 @@
         <div class="footer-content">
             <h3>RisadaGarantida</h3>
             <p>O melhor site para assistir vídeos engraçados e começar o dia com alegria!</p>
+            
+            <div class="footer-links">
+                <a href="#">Sobre Nós</a>
+                <a href="#">Contato</a>
+                <a href="#">Política de Privacidade</a>
+                <a href="#">Termos de Uso</a>
+                <a href="#">FAQ</a>
+                <a href="#">Anuncie</a>
+            </div>
+            
             <div class="social-links">
                 <a href="#"><i class="fab fa-facebook"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
@@ -1543,6 +945,24 @@
                 likes: "94%",
                 duration: "2:37",
                 category: "Memes"
+            },
+            {
+                id: 7,
+                title: "Pais dançando awkwardly",
+                description: "Pais tentando dançar nas festas de formatura dos filhos.",
+                views: "225K",
+                likes: "93%",
+                duration: "3:15",
+                category: "Fails"
+            },
+            {
+                id: 8,
+                title: "Crianças dizendo coisas engraçadas",
+                description: "As pérolas mais engraçadas ditas por crianças.",
+                views: "198K",
+                likes: "96%",
+                duration: "4:50",
+                category: "Bebês"
             }
         ];
 
@@ -1550,65 +970,93 @@
         document.addEventListener('DOMContentLoaded', function() {
             console.log('Site RisadaGarantida carregado!');
             
-            // Carregar vídeos na página
+            // Elementos do DOM
+            const loginBtn = document.getElementById('login-btn');
+            const loginModal = document.getElementById('login-modal');
+            const closeModalBtn = document.querySelector('.close-modal');
             const videoContainer = document.getElementById('video-container');
-            
-            videos.forEach(video => {
-                const videoCard = document.createElement('div');
-                videoCard.className = 'video-card';
-                videoCard.dataset.id = video.id;
-                videoCard.dataset.category = video.category;
-                
-                videoCard.innerHTML = `
-                    <div class="video-thumb">
-                        <i class="fas fa-play-circle"></i>
-                        <span class="video-duration">${video.duration}</span>
-                    </div>
-                    <div class="video-info">
-                        <div class="video-title">${video.title}</div>
-                        <div class="video-desc">${video.description}</div>
-                        <div class="video-meta">
-                            <span><i class="fas fa-eye"></i> ${video.views}</span>
-                            <span><i class="far fa-thumbs-up"></i> ${video.likes}</span>
-                        </div>
-                    </div>
-                `;
-                
-                videoContainer.appendChild(videoCard);
-            });
-            
-            // Abrir player de vídeo ao clicar em um card
-            const videoCards = document.querySelectorAll('.video-card');
             const videoPlayer = document.getElementById('video-player');
             const playerTitle = document.getElementById('player-title');
             const expandedTitle = document.getElementById('expanded-title');
             const expandedDesc = document.getElementById('expanded-desc');
+            const closePlayerBtn = document.getElementById('close-player');
+            const featuredPlayBtn = document.getElementById('featured-play-btn');
             
-            videoCards.forEach(card => {
-                card.addEventListener('click', function() {
-                    const videoId = this.dataset.id;
-                    const video = videos.find(v => v.id == videoId);
-                    
-                    if (video) {
-                        playerTitle.textContent = video.title;
-                        expandedTitle.textContent = video.title;
-                        expandedDesc.textContent = video.description;
-                        
-                        // Scroll para o player e exibir
-                        videoPlayer.style.display = 'block';
-                        videoPlayer.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
+            // Abrir modal de login
+            loginBtn.addEventListener('click', function() {
+                loginModal.style.display = 'flex';
             });
             
+            // Fechar modal de login
+            closeModalBtn.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+            });
+            
+            // Fechar modal clicando fora dele
+            loginModal.addEventListener('click', function(e) {
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                }
+            });
+            
+            // Carregar vídeos na página
+            function loadVideos() {
+                videoContainer.innerHTML = '';
+                
+                videos.forEach(video => {
+                    const videoCard = document.createElement('div');
+                    videoCard.className = 'video-card';
+                    videoCard.dataset.id = video.id;
+                    videoCard.dataset.category = video.category;
+                    
+                    videoCard.innerHTML = `
+                        <div class="video-thumb">
+                            <i class="fas fa-play-circle"></i>
+                            <span class="video-duration">${video.duration}</span>
+                        </div>
+                        <div class="video-info">
+                            <div class="video-title">${video.title}</div>
+                            <div class="video-desc">${video.description}</div>
+                            <div class="video-meta">
+                                <span><i class="fas fa-eye"></i> ${video.views}</span>
+                                <span><i class="far fa-thumbs-up"></i> ${video.likes}</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    videoContainer.appendChild(videoCard);
+                });
+                
+                // Adicionar event listeners aos cards de vídeo
+                const videoCards = document.querySelectorAll('.video-card');
+                
+                videoCards.forEach(card => {
+                    card.addEventListener('click', function() {
+                        const videoId = this.dataset.id;
+                        const video = videos.find(v => v.id == videoId);
+                        
+                        if (video) {
+                            playerTitle.textContent = video.title;
+                            expandedTitle.textContent = video.title;
+                            expandedDesc.textContent = video.description;
+                            
+                            // Scroll para o player e exibir
+                            videoPlayer.style.display = 'block';
+                            videoPlayer.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+            }
+            
+            // Inicializar carregamento dos vídeos
+            loadVideos();
+            
             // Fechar player de vídeo
-            const closePlayer = document.getElementById('close-player');
-            closePlayer.addEventListener('click', function() {
+            closePlayerBtn.addEventListener('click', function() {
                 videoPlayer.style.display = 'none';
             });
             
             // Botão de play do vídeo em destaque
-            const featuredPlayBtn = document.getElementById('featured-play-btn');
             if (featuredPlayBtn) {
                 featuredPlayBtn.addEventListener('click', function() {
                     // Simular abertura de um vídeo em destaque
@@ -1638,6 +1086,8 @@
             
             // Função para filtrar vídeos por categoria
             function filterVideos(category) {
+                const videoCards = document.querySelectorAll('.video-card');
+                
                 videoCards.forEach(card => {
                     if (category === 'Tudo' || card.dataset.category === category) {
                         card.style.display = 'block';
@@ -1658,43 +1108,4 @@
                 const description = document.getElementById('description').value;
                 
                 if (name && email && videoUrl && description) {
-                    alert('Obrigado por enviar seu vídeo! Nossa equipe irá analisá-lo em breve.');
-                    // Limpar formulário
-                    document.getElementById('name').value = '';
-                    document.getElementById('email').value = '';
-                    document.getElementById('video-url').value = '';
-                    document.getElementById('description').value = '';
-                } else {
-                    alert('Por favor, preencha todos os campos do formulário.');
-                }
-            });
-            
-            // Sistema de likes
-            const likeBtn = document.querySelector('.like-btn');
-            likeBtn.addEventListener('click', function() {
-                this.classList.toggle('liked');
-                if (this.classList.contains('liked')) {
-                    this.innerHTML = '<i class="fas fa-thumbs-up"></i> Curtido';
-                    this.style.color = '#ff6b6b';
-                } else {
-                    this.innerHTML = '<i class="far fa-thumbs-up"></i> Curtir';
-                    this.style.color = '#666';
-                }
-            });
-            
-            // Sistema de favoritos
-            const favBtn = document.querySelector('.fav-btn');
-            favBtn.addEventListener('click', function() {
-                this.classList.toggle('favorited');
-                if (this.classList.contains('favorited')) {
-                    this.innerHTML = '<i class="fas fa-heart"></i> Favoritado';
-                    this.style.color = '#ff6b6b';
-                } else {
-                    this.innerHTML = '<i class="far fa-heart"></i> Favoritar';
-                    this.style.color = '#666';
-                }
-            });
-        });
-    </script>
-</body>
-</html>
+                    alert('Obrigado por enviar seu vídeo! Nossa
